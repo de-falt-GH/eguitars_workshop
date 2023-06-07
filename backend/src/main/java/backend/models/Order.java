@@ -13,7 +13,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "id")
-    private long clientId;
+    private Client client;
 
     @Column
     private String instrument;

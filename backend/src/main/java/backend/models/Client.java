@@ -19,6 +19,6 @@ public class Client {
     @Column
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "clients")
+    @OneToMany(mappedBy = "client")
     private List<Order> orders;
 }
