@@ -26,6 +26,7 @@ public class ClientController {
 
     @PostMapping("/clients")
     public Client createClient(@RequestBody Client client) {
+        System.out.println(client.toString());
         clients.save(client);
         return client;
     }

@@ -28,4 +28,11 @@ public class OrderService {
     public void deleteById(long id) {
         orders.deleteById(id);
     }
+
+    @Transactional
+    public void updateStatusById(long id, String status) {
+        var order = orders.findById(id).get();
+        order.setStatus(status);
+        orders.save(order);
+    }
 }
