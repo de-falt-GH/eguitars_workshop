@@ -16,7 +16,7 @@ import backend.repos.BuildingRepository;
 import backend.services.OrderService;
 
 @ExtendWith(MockitoExtension.class)
-public class BuildingServiceTests {
+public class OrderServiceTests {
     @Mock
     private BuildingRepository buildingRepository;
 

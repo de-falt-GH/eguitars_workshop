@@ -19,6 +19,5 @@ public class Client {
     @Column
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "client")
-    private List<Order> orders;
+    private List<Integer> order_ids;
 }

@@ -8,15 +8,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 import backend.models.Client;
 import backend.repos.ClientRepository;
+import backend.repos.OrderRepository;
 
 @Service
 public class ClientService {
     @Autowired
     private ClientRepository clients;
+    @Autowired
+    private OrderRepository orders;
 
     @Transactional(readOnly = true)
     public List<Client> getAll() {
-        return clients.findAll();
+        var client_list = clients.findAll();
+        for (Client client : client_list) {
+            client.setOrder_ids(orders.findAllOrderIdsByUserId(client.getId()));
+        }
+
+        return client_list;
     }
 
     @Transactional

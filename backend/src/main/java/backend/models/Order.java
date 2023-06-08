@@ -11,9 +11,8 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
-    private Client client;
+    @Column
+    private int client_id;
 
     @Column
     private String instrument;

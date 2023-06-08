@@ -16,7 +16,7 @@ import backend.repos.AddressRepository;
 import backend.services.ClientService;
 
 @ExtendWith(MockitoExtension.class)
-public class AddressServiceTests {
+public class ClientServiceTests {
     @Mock
     private AddressRepository addressRepository;
 
