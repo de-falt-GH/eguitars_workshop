@@ -26,7 +26,6 @@ export default {
                 for (let i=(pageNumber-1)*pageSize; i < Math.min(pageNumber*pageSize, response.data.length); i++) {
                     orders.value.push({
                         id: response.data[i].id,
-                        clientId: response.data[i].clientId,
                         instrument: response.data[i].instrument,
                         description: response.data[i].description,
                         status: {
@@ -71,6 +70,11 @@ export default {
 
 function getStatuses(){
     return [
+        {
+            value: 'accepted',
+            label: 'принят'
+        },
+
         {
             value: 'work',
             label: 'в работе'

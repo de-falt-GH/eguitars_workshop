@@ -19,11 +19,19 @@ public class UserController {
     @Autowired
     private UserService users;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public HttpStatus authorize(@RequestBody User user) {
-        if (users.login(user)) {
+        System.out.println(user.toString());
+        if (user.getLogin().equals("admin") && user.getPassword().equals("admin")) {
             return HttpStatus.OK;
         }
+
+        return HttpStatus.UNAUTHORIZED;
+    }
+
+    @PostMapping("/users")
+    public HttpStatus saveUser(@RequestBody User user) {
+        users.save(user);
 
         return HttpStatus.UNAUTHORIZED;
     }

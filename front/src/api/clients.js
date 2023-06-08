@@ -38,7 +38,7 @@ export default {
                         "id": response.data[i].id,
                         "name": response.data[i].name,
                         "telephone": response.data[i].phoneNumber,
-                        "orders": response.data[i].orders
+                        "orders": response.data[i].order_ids
                     })
                 }
             })

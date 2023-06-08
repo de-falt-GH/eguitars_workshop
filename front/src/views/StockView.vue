@@ -5,7 +5,7 @@
                 <h2 class="header-title">Склад</h2>
                 <v-order-materials-button class="header-button" @addOrder="addOrder"/>
             </header>
-            <el-table :data="materials" stripe class="client-table">
+            <el-table :data="materials" stripe class="client-table" :key="materials.id">
                 <el-table-column prop="id" label="id" align="left"/>
                 <el-table-column prop="category" label="категория"/>
                 <el-table-column prop="name" label="названия"/>

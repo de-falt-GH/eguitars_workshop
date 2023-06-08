@@ -18,6 +18,8 @@
 <script>
 // @ is an alias to /src
 
+import axios from "axios";
+
 export default {
     name: 'HomeView',
     data() {
@@ -30,7 +32,17 @@ export default {
     },
     methods: {
         onEnter() {
+          axios({
+            method: 'post',
+            url: 'http://localhost:8080/login',
+            data: {
+              login: this.form.login,
+              password: this.form.password
+            }
+          }).then(()=>{
+            this.$store.commit('login')
             this.$router.push({name: 'clients'})
+          });
         }
     }
 }

@@ -25,7 +25,7 @@ export default {
                     materials.value.push({
                         id: response.data[i].id,
                         category: response.data[i].category,
-                        instrument: response.data[i].instrument,
+                        name: response.data[i].name,
                         amount: response.data[i].amount
                     })
                 }
@@ -48,9 +48,9 @@ export default {
     {
         axios({
             method: 'put',
-            url: `http://localhost:8080/materials/{id}`,
+            url: `http://localhost:8080/materials/${id}`,
             data: {
-                amount: val
+                value: val
             }
         })
     }

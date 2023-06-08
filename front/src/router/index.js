@@ -4,6 +4,7 @@ import LoginView from "@/views/LoginView.vue";
 import ClientView from "@/views/ClientView.vue";
 import OrderView from "@/views/OrderView.vue";
 import StockView from "@/views/StockView.vue";
+import store from "@/store";
 
 const routes = [
     {
@@ -25,7 +26,7 @@ const routes = [
                 component: OrderView,
                 meta:{
                     title: 'Заказы'
-                }
+                },
             },
             {
                 path: 'stock',
@@ -61,5 +62,13 @@ router.beforeEach((to) => {
     document.title = to.meta?.title ?? 'Гитарная мастерская'
 })
 
+router.beforeEach((to, from, next) => {
+    if (to.name !== 'login' && !store.getters.isLogin) {
+        next({ name: 'login' })
+    }
+    else {
+        next()
+    }
+})
 
 export default router
