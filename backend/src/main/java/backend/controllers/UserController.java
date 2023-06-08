@@ -11,28 +11,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import backend.models.Client;
-import backend.services.ClientService;
+import backend.models.User;
+import backend.services.UserService;
 
 @RestController
-public class ClientController {
+public class UserController {
     @Autowired
-    private ClientService clients;
+    private UserService users;
 
-    @GetMapping("/clients")
-    public List<Client> getAllClients() {
-        return clients.getAll();
-    }
+    @GetMapping("/login")
+    public HttpStatus authorize(@RequestBody User user) {
+        if (users.login(user)) {
+            return HttpStatus.OK;
+        }
 
-    @PostMapping("/clients")
-    public Client createClient(@RequestBody Client client) {
-        clients.save(client);
-        return client;
-    }
-
-    @DeleteMapping("/clients/{id}")
-    public HttpStatus deleteMarket(@PathVariable long id) {
-        clients.deleteById(id);
-        return HttpStatus.OK;
+        return HttpStatus.UNAUTHORIZED;
     }
 }

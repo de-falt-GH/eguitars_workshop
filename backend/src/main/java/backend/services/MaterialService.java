@@ -31,8 +31,12 @@ public class MaterialService {
 
     @Transactional
     public void updateNumById(long id, int value) {
-        var material = materials.findById(id).get();
-        material.setAmount(value);
-        materials.save(material);
+        if (value <= 0) {
+            materials.deleteById(id);
+        } else {
+            var material = materials.findById(id).get();
+            material.setAmount(value);
+            materials.save(material);
+        }
     }
 }

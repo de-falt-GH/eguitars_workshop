@@ -38,7 +38,6 @@
 <script>
 
 import {Plus} from "@element-plus/icons-vue";
-import clients from "@/api/clients";
 
 export default {
     name: "VAddClientButton",
@@ -65,7 +64,7 @@ export default {
             this.dialogVisible = false
         },
         addClient() {
-            clients.addClient(this.client)
+            this.$emit('addClient', this.client)
             this.dialogVisible = false
             this.client = {}
         }

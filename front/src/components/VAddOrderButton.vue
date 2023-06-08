@@ -41,7 +41,6 @@
 <script>
 
 import {Plus} from "@element-plus/icons-vue";
-import orders from "@/api/orders";
 
 export default {
     name: "VAddOrderButton",
@@ -69,7 +68,7 @@ export default {
             this.dialogVisible = false
         },
         addOrder() {
-            orders.add(this.order)
+            this.$emit('addOrder', this.order)
             this.dialogVisible = false
             this.order = {}
         }

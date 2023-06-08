@@ -3,7 +3,7 @@
         <div class="stock">
             <header class="stock-header">
                 <h2 class="header-title">Склад</h2>
-                <v-order-materials-button class="header-button"/>
+                <v-order-materials-button class="header-button" @addOrder="addOrder"/>
             </header>
             <el-table :data="materials" stripe class="client-table">
                 <el-table-column prop="id" label="id" align="left"/>
@@ -40,17 +40,30 @@ export default {
         return {
             page: {
                 size: 20,
-                total: 400
+                total: 400,
+              current: 1
             },
             materials: []
         }
     },
     methods: {
         updatePage(val) {
-            this.clients = stock.get(val, this.page.size)
+            this.materials = stock.get(val, this.page.size)
+            this.page.current = val
         },
         updateAmount(val, id) {
             stock.updateAmount(id, val)
+            setTimeout(()=> {
+                  this.updatePage(this.page.current)
+                }, 10
+            )
+        },
+        addOrder(order){
+          stock.add(order);
+          setTimeout(()=> {
+                this.updatePage(this.page.current)
+              }, 10
+          )
         }
     },
     created() {

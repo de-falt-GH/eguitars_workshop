@@ -3,7 +3,7 @@
         <div class="order">
             <header class="order-header">
                 <h2 class="header-title">Список заказов</h2>
-                <v-add-order-button class="header-button"/>
+                <v-add-order-button class="header-button" @addOrder="addOrder"/>
             </header>
             <el-table :data="orders" stripe class="order-table">
                 <el-table-column type="expand">
@@ -69,7 +69,8 @@ export default {
         return {
             page: {
                 size: 20,
-                total: 400
+                total: 400,
+                current: 1
             },
             orders: [],
             statusOption: []
@@ -78,18 +79,31 @@ export default {
     methods: {
         updatePage(val) {
             this.orders = orders.get(val, this.page.size)
+            this.current = val
         },
         getDescription(row) {
             return row.description
         },
         getDate(row) {
-            return row.date.toLocaleString()
+          return row.date
+            // return row.date.toLocaleString()
         },
         deleteOrder(row) {
             orders.delete(row.id)
+            setTimeout(()=> {
+                  this.updatePage(this.page.current)
+                }, 10
+            )
         },
         updateOption(newStatus, id){
             orders.updateOption(id, newStatus)
+        },
+        addOrder(order){
+            orders.add(order)
+            setTimeout(()=> {
+                  this.updatePage(this.page.current)
+                }, 10
+            )
         }
     },
     created() {

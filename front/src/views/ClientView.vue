@@ -3,7 +3,7 @@
         <div class="client">
             <header class="client-header">
                 <h2 class="header-title">Список клиентов</h2>
-                <v-add-client-button class="header-button"/>
+                <v-add-client-button class="header-button" @addClient="addClient"/>
             </header>
             <el-table :data="clients" stripe class="client-table">
                 <el-table-column type="expand">
@@ -62,7 +62,8 @@ export default {
         return {
             page: {
                 size: 20,
-                total: 400
+                total: 400,
+                current: 1
             },
             clients: []
         }
@@ -70,9 +71,14 @@ export default {
     methods: {
         updatePage(val) {
             this.clients = clients.get(val, this.page.size)
+            this.page.current = val
         },
         deleteClient(row) {
             clients.delete(row.id)
+            setTimeout(()=> {
+              this.updatePage(this.page.current)
+            }, 10
+            )
         },
         getOneOrder(row) {
             return row.orders[0] ?? 'Нет заказов'
@@ -82,10 +88,19 @@ export default {
                 return 'Нет заказов'
             }
             return `Заказы: ${row.orders.join(', ')}`
+        },
+
+        addClient(client) {
+          clients.addClient(client)
+          setTimeout(()=> {
+                this.updatePage(this.page.current)
+              }, 10
+          )
         }
     },
     created() {
         this.clients = clients.get(1, this.page.size)
+
     }
 }
 </script>
