@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import backend.models.Material;
+import backend.models.UpdateField;
 import backend.services.MaterialService;
 
 @RestController
@@ -38,8 +39,8 @@ public class MaterialController {
     }
 
     @PutMapping("/materials/{id}")
-    public HttpStatus UpdateMaterialNum(@PathVariable long id, @RequestBody int num) {
-        materials.updateNumById(id, num);
+    public HttpStatus UpdateMaterialNum(@PathVariable long id, @RequestBody UpdateField updateField) {
+        materials.updateNumById(id, Integer.valueOf(updateField.getValue()));
         return HttpStatus.OK;
     }
 }
