@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import backend.models.Order;
+import backend.models.UpdateField;
 import backend.services.OrderService;
 
 @RestController
@@ -38,8 +39,8 @@ public class OrderController {
     }
 
     @PutMapping("/orders/{id}")
-    public HttpStatus updateOrderStatus(@PathVariable long id, @RequestBody String status) {
-        orders.updateStatusById(id, status);
+    public HttpStatus updateOrderStatus(@PathVariable long id, @RequestBody UpdateField updateField) {
+        orders.updateStatusById(id, updateField.getValue());
         return HttpStatus.OK;
     }
 }
