@@ -23,7 +23,6 @@ public class UserController {
     public HttpStatus authorize(@RequestBody User user) {
         System.out.println(user.toString());
         if (user.getLogin().equals("admin") && user.getPassword().equals("admin")) {
-            System.out.println("check");
             return HttpStatus.OK;
         }
 

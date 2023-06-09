@@ -26,6 +26,7 @@ export default {
                 for (let i=(pageNumber-1)*pageSize; i < Math.min(pageNumber*pageSize, response.data.length); i++) {
                     orders.value.push({
                         id: response.data[i].id,
+                        clientId: response.data[i].clientId,
                         instrument: response.data[i].instrument,
                         description: response.data[i].description,
                         status: {
@@ -61,6 +62,13 @@ export default {
     },
     updateOption(id, newStatus) {
         console.log(id, newStatus)
+        axios({
+            method: 'put',
+            url: `http://localhost:8080/orders/${id}`,
+            data:{
+                value: newStatus.value
+            }
+        })
     }
 }
 

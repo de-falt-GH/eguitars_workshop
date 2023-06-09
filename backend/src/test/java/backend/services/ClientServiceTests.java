@@ -11,44 +11,44 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import backend.models.Address;
-import backend.repos.AddressRepository;
+import backend.models.Client;
+import backend.repos.ClientRepository;
 import backend.services.ClientService;
 
 @ExtendWith(MockitoExtension.class)
 public class ClientServiceTests {
     @Mock
-    private AddressRepository addressRepository;
+    private ClientRepository clients;
 
     @Captor
-    private ArgumentCaptor<Address> captor;
+    private ArgumentCaptor<Client> captor;
 
     @Test
     void findAll() {
-        var address1 = new Address();
-        address1.setAddressText("addressText1");
-        var address2 = new Address();
-        address1.setAddressText("addressText2");
-        var address3 = new Address();
-        address1.setAddressText("addressText3");
+        var client1 = new Client();
+        client1.setName("Name1");
+        var client2 = new Client();
+        client1.setName("Name2");
+        var client3 = new Client();
+        client1.setName("Name3");
 
-        Mockito.when(addressRepository.findAll()).thenReturn(List.of(address1, address2, address3));
-        var postService = new ClientService(addressRepository);
+        Mockito.when(clients.findAll()).thenReturn(List.of(client1, client2, client3));
+        var postService = new ClientService();
 
         Assertions.assertEquals(3, postService.getAll().size());
-        Assertions.assertEquals(address1.getAddressText(), postService.getAll().get(0).getAddressText());
+        Assertions.assertEquals(client1.getName(), postService.getAll().get(0).getName());
     }
 
     @Test
     void save() {
-        var address = new Address();
-        address.setAddressText("testText");
+        var client = new Client();
+        client.setName("name");
 
-        var service = new ClientService(addressRepository);
-        service.save(address);
-        Mockito.verify(addressRepository).save(captor.capture());
-        var address1 = captor.getValue();
+        var service = new ClientService();
+        service.save(client);
+        Mockito.verify(clients).save(captor.capture());
+        var client1 = captor.getValue();
 
-        Assertions.assertEquals("testText", address1.getAddressText());
+        Assertions.assertEquals("name", client1.getName());
     }
 }
